@@ -1,0 +1,25 @@
+
+# --- Web Framework ---
+fastapi
+uvicorn
+gunicorn
+
+# --- Veritabanı & Embedding ---
+pymilvus
+sentence-transformers
+
+# --- LLM ---
+ollama
+httpx
+
+# --- LangGraph ---
+langgraph
+langchain-ollama
+langchain-core
+langgraph-checkpoint-sqlite
+
+# --- Diğer ---
+pydantic
+python-dotenv
+numpy
+zeyrek

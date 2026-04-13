@@ -1,0 +1,43 @@
+services:
+  # --- Backend Servisi ---
+  backend:
+    build: .
+    container_name: valiz_backend
+    restart: unless-stopped
+    ports:
+      - "9005:9005"
+    volumes:
+      - .:/Valizbackend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - HF_TOKEN=${HF_TOKEN}
+      
+      # DEADLOCK ÇÖZÜMÜ: ChromaDB / PyTorch Thread Kilitlenmesini Önleyen Ayarlar
+      - OMP_NUM_THREADS=1
+      - TOKENIZERS_PARALLELISM=false
+      - MKL_NUM_THREADS=1
+      - OPENBLAS_NUM_THREADS=1
+      
+      # Backend'e "Mac'te halihazırda çalışan Milvus'a bağlan" diyoruz:
+      - MILVUS_HOST=host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # --- Frontend Servisi ---
+  frontend:
+    build: ./valizfrontend
+    container_name: valiz_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./valizfrontend:/valizfrontend
+      - /valizfrontend/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend

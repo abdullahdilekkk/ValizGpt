@@ -1,0 +1,36 @@
+# --- Python Gereksiz Dosyaları ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# --- Sanal Ortamlar ---
+# (Docker imajı kendi Python ortamını kuracağı için senin bilgisayarındakileri oraya taşımaması gerekir)
+.venv/
+venv/
+env/
+
+# --- Güvenlik ---
+# (Şifrelerin Docker imajının (kodu kopyaladığımız yer) içine yazılmasını durdurur, Docker şifreleri çalışma anında okuyacak)
+.env
+
+# --- İşletim Sistemi Kalıntıları ---
+.DS_Store
+
+# --- Proje Geçmişi ve Github Dosyaları ---
+# (Docker sadece kodları çalıştırmakla ilgilenir, git geçmişiyle değil)
+.git/
+.gitignore
+yedek/
+
+# --- IDE Dosyaları ---
+.vscode/
+
+# --- Veri Dosyaları ---
+# (Not: hotels_big_db.json dosyasını bilerek buraya YAZMIYORUM, çünkü imajın içine kopyalanması gerekiyor)
+*.db
+*.sqlite3
+*-shm
+*-wal
+sessions_v3.db
